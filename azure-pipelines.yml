@@ -1,0 +1,33 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- bash: |
+   git clone https://github.com/mulesoft-catalyst/mule-sonarqube-plugin.git
+   cd mule-sonarqube-plugin
+   mvn clean package sonar-packaging:sonar-plugin -Dlanguage=mule
+   
+   mkdir $(build.artifactstagingdirectory)/build
+   
+   cp /home/vsts/work/1/s/mule-sonarqube-plugin/target/mule-validation-sonarqube-plugin-1.0.5-mule.jar  $(build.artifactstagingdirectory)/build
+  displayName: 'Bash Script'
+
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'pom.xml'
+#     mavenOptions: '-Xmx3072m -Dlanguage=mule'
+#     javaHomeOption: 'JDKVersion'
+#     jdkVersionOption: '1.8'
+#     jdkArchitectureOption: 'x64'
+#     publishJUnitResults: true
+#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#     goals: 'clean package'
+
