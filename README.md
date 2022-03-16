@@ -1,5 +1,5 @@
 Table of Contents
-=================
+==================
 
    * [Table of Contents](#table-of-contents)
    * [Mule SonarQube Plugin](#mule-sonarqube-plugin)
